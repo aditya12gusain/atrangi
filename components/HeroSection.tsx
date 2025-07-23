@@ -92,7 +92,7 @@ const HeroSection = () => {
                 variants={imageVariants}
                 className="relative overflow-hidden"
             >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
+                {/*@eslit-ndisable-next-line @next/next/no-img-element */}
                 <motion.img
                     src="/hero-section.png"
                     alt="Hero Section"

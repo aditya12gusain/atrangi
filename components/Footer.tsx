@@ -273,7 +273,7 @@ const Footer = () => {
                     {/* Back to Top */}
                     <motion.div variants={itemVariants}>
                         <h4 className="text-lg font-semibold font-jost text-white mb-6">
-                            Let's Connect
+                            Let&apos;s Connect
                         </h4>
                         <motion.button
                             onClick={() => scrollToSection("#lets-collaborate")}
