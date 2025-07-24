@@ -276,6 +276,24 @@ const CoreOfferings = () => {
         }
     }, [expandedIndex, autoplayPlugin, emblaApi]);
 
+    useEffect(() => {
+        if (expandedIndex !== null) {
+            // Disable body scroll
+            document.body.style.overflow = "hidden";
+            document.body.style.paddingRight = "0px"; // Prevent layout shift
+        } else {
+            // Re-enable body scroll
+            document.body.style.overflow = "unset";
+            document.body.style.paddingRight = "0px";
+        }
+
+        // Cleanup function to ensure scroll is re-enabled if component unmounts
+        return () => {
+            document.body.style.overflow = "unset";
+            document.body.style.paddingRight = "0px";
+        };
+    }, [expandedIndex]);
+
     const handleCardClick = (index: number, event: React.MouseEvent) => {
         const rect = event.currentTarget.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
@@ -576,6 +594,7 @@ const CoreOfferings = () => {
                                     ease: [0.25, 0.46, 0.45, 0.94],
                                 }}
                                 onClick={(e) => e.stopPropagation()}
+                                style={{ zIndex: 10000 }}
                             >
                                 {expandedIndex !== null && (
                                     <>

@@ -152,7 +152,7 @@ const SignatureWork = () => {
     return (
         <motion.section
             id="signature-work"
-            className="bg-bone p-6 py-16 md:p-16 md:py-20 relative overflow-hidden"
+            className="z-0 bg-bone p-6 py-16 md:p-16 md:py-20 relative overflow-hidden"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
