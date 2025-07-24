@@ -1,6 +1,7 @@
 "use client";
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 
 const signatureWork = {
     title: "Signature Work",
@@ -8,7 +9,7 @@ const signatureWork = {
         {
             category: "Major Events & Livestreams",
             works: [
-                "Google for India (2022,23,24) – Multicam livestreams + branded content",
+                "Google for India (2022/23/24) – Multicam livestreams + branded content",
                 "Amazon Sambhav Summit – Live event AV production + stream",
             ],
         },
@@ -115,7 +116,39 @@ const workItemVariants = {
     },
 };
 
+const accordionContentVariants = {
+    hidden: {
+        height: 0,
+        opacity: 0,
+    },
+    visible: {
+        height: "auto",
+        opacity: 1,
+    },
+};
+
+const arrowVariants = {
+    closed: { rotate: 0 },
+    open: { rotate: 180 },
+};
+
 const SignatureWork = () => {
+    const [openAccordions, setOpenAccordions] = useState<Set<number>>(
+        new Set()
+    );
+
+    const toggleAccordion = (index: number) => {
+        setOpenAccordions((prev) => {
+            const newSet = new Set(prev);
+            if (newSet.has(index)) {
+                newSet.delete(index);
+            } else {
+                newSet.add(index);
+            }
+            return newSet;
+        });
+    };
+
     return (
         <motion.section
             id="signature-work"
@@ -125,56 +158,6 @@ const SignatureWork = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
         >
-            {/* Background floating circle elements for uniqueness */}
-            <motion.div
-                className="absolute top-16 right-8 w-24 h-24 border border-eerie-black/15 rounded-full"
-                animate={{
-                    scale: [1, 1.2, 1],
-                    rotate: [0, 180, 360],
-                }}
-                transition={{
-                    scale: { duration: 6, repeat: Infinity, ease: "easeInOut" },
-                    rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                }}
-            />
-
-            <motion.div
-                className="absolute bottom-24 left-8 w-16 h-16 border border-barn-red/20 rounded-full"
-                animate={{
-                    scale: [1, 0.8, 1],
-                    rotate: [0, -180, -360],
-                }}
-                transition={{
-                    scale: { duration: 4, repeat: Infinity, ease: "easeInOut" },
-                    rotate: { duration: 15, repeat: Infinity, ease: "linear" },
-                }}
-            />
-
-            {/* Additional circular accents */}
-            <motion.div
-                className="absolute top-1/3 left-12 w-12 h-12 border border-eerie-black/10 rounded-full"
-                animate={{
-                    scale: [1, 1.3, 1],
-                    rotate: [0, 360],
-                }}
-                transition={{
-                    scale: { duration: 5, repeat: Infinity, ease: "easeInOut" },
-                    rotate: { duration: 25, repeat: Infinity, ease: "linear" },
-                }}
-            />
-
-            <motion.div
-                className="absolute top-2/3 right-12 w-8 h-8 border border-barn-red/15 rounded-full"
-                animate={{
-                    scale: [1, 0.9, 1],
-                    rotate: [0, -360],
-                }}
-                transition={{
-                    scale: { duration: 3, repeat: Infinity, ease: "easeInOut" },
-                    rotate: { duration: 18, repeat: Infinity, ease: "linear" },
-                }}
-            />
-
             <div className="max-w-screen-2xl mx-auto relative z-10">
                 {/* Section Header */}
                 <motion.div
@@ -197,132 +180,179 @@ const SignatureWork = () => {
                     />
                 </motion.div>
 
-                {/* Timeline-style Categories */}
-                <div className="space-y-12">
+                {/* Accordion Categories */}
+                <div className="space-y-0 border-y border-eerie-black/20">
                     {signatureWork.categories.map((category, categoryIndex) => (
                         <motion.div
                             key={categoryIndex}
-                            className="relative"
+                            className="relative border-b border-eerie-black/20 last:border-b-0"
                             variants={categoryVariants}
                         >
-                            {/* Category Header with Timeline Dot */}
-                            <motion.div
-                                className="flex items-center mb-8 group"
+                            {/* Accordion Header */}
+                            <motion.button
+                                className={`w-full flex items-center justify-between py-8 px-4 group cursor-pointer bg-transparent transition-colors duration-300 ${
+                                    openAccordions.has(categoryIndex)
+                                        ? "bg-white/50"
+                                        : "hover:bg-white/50"
+                                }`}
+                                onClick={() => toggleAccordion(categoryIndex)}
+                                animate={{
+                                    x: openAccordions.has(categoryIndex)
+                                        ? 8
+                                        : 0,
+                                }}
                                 whileHover={{ x: 8 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                <motion.div
-                                    className="w-6 h-6 bg-barn-red rounded-full mr-6 shadow-lg group-hover:scale-110 transition-transform duration-300"
-                                    whileHover={{ scale: 1.2 }}
-                                />
-                                <motion.h3
-                                    className="text-2xl md:text-3xl font-bold text-eerie-black font-jost group-hover:text-barn-red transition-colors duration-300"
-                                    whileHover={{ scale: 1.02 }}
-                                >
-                                    {category.category}
-                                </motion.h3>
-                            </motion.div>
-
-                            {/* Timeline Line (except for last category) */}
-                            {categoryIndex <
-                                signatureWork.categories.length - 1 && (
-                                <motion.div
-                                    className="absolute left-3 top-12 w-0.5 h-full bg-gradient-to-b from-barn-red"
-                                    initial={{ scaleY: 0 }}
-                                    whileInView={{ scaleY: 1 }}
-                                    transition={{ duration: 1, delay: 0.2 }}
-                                    style={{ originY: 0 }}
-                                />
-                            )}
-
-                            {/* Work Items Grid */}
-                            <motion.div className="ml-12 grid grid-cols-1 lg:grid-cols-2 gap-6">
-                                {category.works.map((work, workIndex) => (
+                                <div className="flex items-center">
                                     <motion.div
-                                        key={workIndex}
-                                        className="relative bg-white backdrop-blur-sm p-6 rounded-xl shadow hover:shadow-xl transition-all duration-300 group border border-eerie-black/10"
-                                        variants={workItemVariants}
-                                        whileHover={{
-                                            scale: 1.02,
-                                            backgroundColor:
-                                                "rgba(255, 255, 255, 0.95)",
-                                            boxShadow:
-                                                "0 20px 40px rgba(31, 32, 30, 0.15)",
+                                        className={`w-6 h-6 bg-barn-red rounded-full mr-6 shadow-lg transition-transform duration-300 ${
+                                            openAccordions.has(categoryIndex)
+                                                ? "scale-110"
+                                                : "group-hover:scale-110"
+                                        }`}
+                                        animate={{
+                                            scale: openAccordions.has(
+                                                categoryIndex
+                                            )
+                                                ? 1.1
+                                                : 1,
                                         }}
-                                        whileTap={{ scale: 0.98 }}
+                                        whileHover={{ scale: 1.2 }}
+                                    />
+                                    <motion.h3
+                                        className={`text-2xl md:text-3xl font-bold font-jost transition-colors duration-300 text-left ${
+                                            openAccordions.has(categoryIndex)
+                                                ? "text-barn-red"
+                                                : "text-eerie-black group-hover:text-barn-red"
+                                        }`}
+                                        animate={{
+                                            color: openAccordions.has(
+                                                categoryIndex
+                                            )
+                                                ? "#dc2626"
+                                                : "#1f201e",
+                                        }}
+                                        whileHover={{ scale: 1.02 }}
                                     >
-                                        {/* Animated border progress bar */}
-                                        <svg
-                                            className="absolute inset-0 w-full h-full rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <motion.rect
-                                                x="1"
-                                                y="1"
-                                                width="calc(100% - 2px)"
-                                                height="calc(100% - 2px)"
-                                                fill="none"
-                                                stroke="#dc2626"
-                                                strokeWidth="2"
-                                                rx="11"
-                                                ry="11"
-                                                strokeDasharray="100%"
-                                                strokeDashoffset="100%"
-                                                animate={{
-                                                    strokeDashoffset: [
-                                                        "100%",
-                                                        "0%",
-                                                        "-100%",
-                                                    ],
-                                                }}
-                                                transition={{
-                                                    duration: 3,
-                                                    repeat: Infinity,
-                                                    ease: "easeInOut",
-                                                }}
-                                            />
-                                        </svg>
+                                        {category.category}
+                                    </motion.h3>
+                                </div>
 
-                                        <motion.p
-                                            className="relative z-10 text-eerie-black/90 leading-relaxed font-open-sans group-hover:text-eerie-black transition-colors duration-300"
-                                            whileHover={{ x: 4 }}
-                                            transition={{ duration: 0.2 }}
-                                        >
-                                            {work}
-                                        </motion.p>
+                                {/* Animated Arrow */}
+                                <motion.div
+                                    className={`transition-opacity duration-300 ${
+                                        openAccordions.has(categoryIndex)
+                                            ? "opacity-100"
+                                            : "opacity-0 group-hover:opacity-100"
+                                    }`}
+                                    variants={arrowVariants}
+                                    animate={
+                                        openAccordions.has(categoryIndex)
+                                            ? "open"
+                                            : "closed"
+                                    }
+                                    transition={{ duration: 0.3 }}
+                                >
+                                    <ChevronDown className="w-6 h-6 text-barn-red" />
+                                </motion.div>
+                            </motion.button>
+
+                            {/* Accordion Content */}
+                            <AnimatePresence>
+                                {openAccordions.has(categoryIndex) && (
+                                    <motion.div
+                                        variants={accordionContentVariants}
+                                        initial="hidden"
+                                        animate="visible"
+                                        exit="hidden"
+                                        transition={{
+                                            duration: 0.4,
+                                            ease: "easeInOut",
+                                        }}
+                                        className="overflow-hidden"
+                                    >
+                                        {/* Work Items Grid */}
+                                        <motion.div className="pl-12 pr-4 py-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                            {category.works.map(
+                                                (work, workIndex) => (
+                                                    <motion.div
+                                                        key={workIndex}
+                                                        className="relative bg-white backdrop-blur-sm p-6 rounded-xl shadow hover:shadow-xl transition-all duration-300 group border border-eerie-black/10"
+                                                        variants={
+                                                            workItemVariants
+                                                        }
+                                                        initial="hidden"
+                                                        animate="visible"
+                                                        transition={{
+                                                            delay:
+                                                                workIndex * 0.1,
+                                                        }}
+                                                        whileHover={{
+                                                            scale: 1.02,
+                                                            backgroundColor:
+                                                                "rgba(255, 255, 255, 0.95)",
+                                                            boxShadow:
+                                                                "0 20px 40px rgba(31, 32, 30, 0.15)",
+                                                        }}
+                                                        whileTap={{
+                                                            scale: 0.98,
+                                                        }}
+                                                    >
+                                                        {/* Animated border progress bar */}
+                                                        <svg
+                                                            className="absolute inset-0 w-full h-full rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                        >
+                                                            <motion.rect
+                                                                x="1"
+                                                                y="1"
+                                                                width="calc(100% - 2px)"
+                                                                height="calc(100% - 2px)"
+                                                                fill="none"
+                                                                stroke="#dc2626"
+                                                                strokeWidth="2"
+                                                                rx="11"
+                                                                ry="11"
+                                                                strokeDasharray="100%"
+                                                                strokeDashoffset="100%"
+                                                                animate={{
+                                                                    strokeDashoffset:
+                                                                        [
+                                                                            "100%",
+                                                                            "0%",
+                                                                            "-100%",
+                                                                        ],
+                                                                }}
+                                                                transition={{
+                                                                    duration: 3,
+                                                                    repeat: Infinity,
+                                                                    ease: "easeInOut",
+                                                                }}
+                                                            />
+                                                        </svg>
+
+                                                        <motion.p
+                                                            className="relative z-10 text-eerie-black/90 leading-relaxed font-open-sans group-hover:text-eerie-black transition-colors duration-300"
+                                                            whileHover={{
+                                                                x: 4,
+                                                            }}
+                                                            transition={{
+                                                                duration: 0.2,
+                                                            }}
+                                                        >
+                                                            {work}
+                                                        </motion.p>
+                                                    </motion.div>
+                                                )
+                                            )}
+                                        </motion.div>
                                     </motion.div>
-                                ))}
-                            </motion.div>
+                                )}
+                            </AnimatePresence>
                         </motion.div>
                     ))}
                 </div>
-
-                {/* Bottom Accent - Triangle pattern for uniqueness */}
-                <motion.div
-                    className="flex justify-center mt-20"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1, duration: 0.6 }}
-                    viewport={{ once: true }}
-                >
-                    <motion.div
-                        className="flex gap-3 items-center"
-                        animate={{
-                            y: [0, -8, 0],
-                        }}
-                        transition={{
-                            duration: 4,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                        }}
-                    >
-                        <div className="w-0 h-0 border-l-2 border-r-2 border-b-4 border-transparent border-b-barn-red" />
-                        <div className="w-3 h-3 bg-eerie-black rounded-full" />
-                        <div className="w-0 h-0 border-l-2 border-r-2 border-b-4 border-transparent border-b-eerie-black" />
-                        <div className="w-3 h-3 bg-barn-red rounded-full" />
-                        <div className="w-0 h-0 border-l-2 border-r-2 border-b-4 border-transparent border-b-barn-red" />
-                    </motion.div>
-                </motion.div>
             </div>
         </motion.section>
     );

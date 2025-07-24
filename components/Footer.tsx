@@ -5,7 +5,8 @@ import { Mail, MapPin, ArrowUp } from "lucide-react";
 
 const footerData = {
     companyName: "Atrangi Productions",
-    tagline: "From Ideas to Impact, On Stage or Screen",
+    tagline:
+        "From Ideas to Impact, On Stage or Screen. We Create, Curate & Convene.",
     contact: {
         email: "hello@atrangiproductions.com",
         office: "123 Sample St, Delhi NCR 110001, India",
@@ -95,7 +96,7 @@ const Footer = () => {
             viewport={{ once: true, amount: 0.2 }}
         >
             {/* Background decorative elements */}
-            <motion.div
+            {/* <motion.div
                 className="absolute top-10 right-10 w-20 h-20 border border-khaki/10 rounded-full"
                 animate={{
                     scale: [1, 1.2, 1],
@@ -105,9 +106,9 @@ const Footer = () => {
                     scale: { duration: 6, repeat: Infinity, ease: "easeInOut" },
                     rotate: { duration: 25, repeat: Infinity, ease: "linear" },
                 }}
-            />
+            /> */}
 
-            <motion.div
+            {/* <motion.div
                 className="absolute bottom-20 left-10 w-16 h-16 border border-bone/20 transform rotate-45"
                 animate={{
                     rotate: [45, 405],
@@ -117,7 +118,7 @@ const Footer = () => {
                     rotate: { duration: 20, repeat: Infinity, ease: "linear" },
                     scale: { duration: 4, repeat: Infinity, ease: "easeInOut" },
                 }}
-            />
+            /> */}
 
             <div className="max-w-screen-2xl mx-auto relative z-10">
                 {/* Main Footer Content */}

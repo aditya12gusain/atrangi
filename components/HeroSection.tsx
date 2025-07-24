@@ -186,7 +186,7 @@ const HeroSection = () => {
                 </div>
 
                 {/* Floating accent dots */}
-                <motion.div
+                {/* <motion.div
                     className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -207,7 +207,7 @@ const HeroSection = () => {
                         <div className="w-2 h-2 bg-white rounded-full opacity-60" />
                         <div className="w-2 h-2 bg-white rounded-full opacity-80" />
                     </motion.div>
-                </motion.div>
+                </motion.div> */}
             </motion.div>
         </motion.section>
     );

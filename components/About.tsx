@@ -1,11 +1,13 @@
 "use client";
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const about = {
     title: "About Us",
     description:
         "Atrangi Productions is a premier full-service content studio and creative consultancy headquartered in Delhi-NCR. Positioned as a one-stop partner for all things content and events, we seamlessly fuse creative vision with high-production execution across digital, brand, and experiential platforms. With over a decade of industry experience, we offer a robust blend of creativity, production excellence, and strategic storytelling. Our work spans television, digital events, and social media — delivering campaigns that connect, convert, and leave a mark. Whether you're launching a new product, planning a brand film, or producing a livestreamed event, Atrangi Productions brings together a team that can handle it all: concept, script, shoot, and final delivery — under one roof.",
+    shortDescription:
+        "Atrangi Productions is a premier full-service content studio and creative consultancy headquartered in Delhi-NCR. Positioned as a one-stop partner for all things content and events, we seamlessly fuse creative vision with high-production execution across digital, brand, and experiential platforms.",
 };
 
 // Animation variants
@@ -67,7 +69,46 @@ const underlineVariants = {
     },
 };
 
+const buttonVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.4,
+            delay: 0.2,
+        },
+    },
+};
+
+const expandedTextVariants = {
+    hidden: {
+        opacity: 0,
+        y: -20,
+    },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.6,
+        },
+    },
+    exit: {
+        opacity: 0,
+        y: -20,
+        transition: {
+            duration: 0.4,
+        },
+    },
+};
+
 const About = () => {
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const toggleExpanded = () => {
+        setIsExpanded(!isExpanded);
+    };
+
     return (
         <motion.section
             id="about"
@@ -96,7 +137,8 @@ const About = () => {
                 />
             </motion.div>
 
-            <div className="flex justify-center items-center">
+            <div className="flex flex-col justify-center items-center">
+                {/* Short Description */}
                 <motion.p
                     className="text-lg md:text-2xl md:leading-9 lg:w-3/4 md:text-center font-open-sans"
                     variants={textVariants}
@@ -105,12 +147,75 @@ const About = () => {
                         transition: { duration: 0.3 },
                     }}
                 >
-                    {about.description}
+                    {about.shortDescription}
                 </motion.p>
+
+                {/* Expanded Content */}
+                <AnimatePresence>
+                    {isExpanded && (
+                        <motion.div
+                            className="lg:w-3/4 md:text-center overflow-hidden"
+                            variants={expandedTextVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="exit"
+                        >
+                            <motion.p
+                                className="text-lg md:text-2xl md:leading-9 font-open-sans mt-4"
+                                whileHover={{
+                                    scale: 1.01,
+                                    transition: { duration: 0.3 },
+                                }}
+                            >
+                                With over a decade of industry experience, we
+                                offer a robust blend of creativity, production
+                                excellence, and strategic storytelling. Our work
+                                spans television, digital events, and social
+                                media — delivering campaigns that connect,
+                                convert, and leave a mark. Whether you&apos;re
+                                launching a new product, planning a brand film,
+                                or producing a livestreamed event, Atrangi
+                                Productions brings together a team that can
+                                handle it all: concept, script, shoot, and final
+                                delivery — under one roof.
+                            </motion.p>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
+                {/* Read More Button */}
+                <motion.button
+                    onClick={toggleExpanded}
+                    className="mt-6 px-6 py-3 bg-barn-red text-white rounded-lg font-open-sans font-semibold hover:bg-barn-red/90 transition-colors duration-300 group relative overflow-hidden"
+                    variants={buttonVariants}
+                    whileHover={{
+                        scale: 1.05,
+                        boxShadow: "0 8px 25px rgba(122, 6, 6, 0.3)",
+                    }}
+                    whileTap={{ scale: 0.98 }}
+                >
+                    <motion.span
+                        animate={{
+                            y: isExpanded ? 0 : 0,
+                            rotate: isExpanded ? 180 : 0,
+                        }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        {isExpanded ? "Read Less" : "Read More"}
+                    </motion.span>
+
+                    {/* Button accent line */}
+                    <motion.div
+                        className="absolute bottom-0 left-0 h-0.5 bg-white"
+                        initial={{ width: 0 }}
+                        whileHover={{ width: "100%" }}
+                        transition={{ duration: 0.3 }}
+                    />
+                </motion.button>
             </div>
 
             {/* Floating accent elements */}
-            <motion.div
+            {/* <motion.div
                 className="flex justify-center mt-8"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -132,7 +237,7 @@ const About = () => {
                     <div className="w-2 h-2 bg-barn-red rounded-full" />
                     <div className="w-2 h-2 bg-khaki rounded-full" />
                 </motion.div>
-            </motion.div>
+            </motion.div> */}
         </motion.section>
     );
 };

@@ -4,6 +4,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import type { EmblaCarouselType } from "embla-carousel";
 import { motion } from "framer-motion";
+import { Globe, Users, Monitor, Lightbulb, Zap } from "lucide-react";
 
 const whyChooseUs = {
     title: "Why Choose Atrangi?",
@@ -12,24 +13,34 @@ const whyChooseUs = {
             title: "Complete Ecosystem",
             description:
                 "From UGC videos to broadcast-level livestreams and event fabrication.",
+            icon: Globe,
+            image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=300&fit=crop&crop=center",
         },
         {
             title: "Integrated Teams",
             description:
                 "Strategy, scripting, direction, filming, and editing all under one roof.",
+            icon: Users,
+            image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=300&fit=crop&crop=center",
         },
         {
             title: "Platform-Native Thinking",
             description:
                 "Content made to perform on reels, shorts, YouTube, or stage.",
+            icon: Monitor,
+            image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=300&fit=crop&crop=center",
         },
         {
             title: "Creative + Commercial Focus",
             description: "Every output blends depth with marketing intent.",
+            icon: Lightbulb,
+            image: "https://images.unsplash.com/reserve/LJIZlzHgQ7WPSh5KVTCB_Typewriter.jpg?w=600&h=300&fit=crop&crop=center",
         },
         {
             title: "Agile Turnarounds",
             description: "UGC delivery in as quick as 48–72 hours.",
+            icon: Zap,
+            image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=300&fit=crop&crop=center",
         },
     ],
 };
@@ -103,10 +114,10 @@ const PrevButton = ({
     disabled: boolean;
 }) => (
     <motion.button
-        className={`embla__button embla__button--prev w-12 h-12 rounded-full bg-white border-2 border-khaki shadow-lg flex items-center justify-center transition-all ${
+        className={`w-12 h-12 rounded-full bg-bone border-2 border-khaki shadow-lg flex items-center justify-center transition-all ${
             disabled
                 ? "opacity-40 cursor-not-allowed"
-                : "opacity-100 hover:bg-barn-red hover:text-white hover:border-barn-red transform hover:scale-105"
+                : "opacity-100 bg-eerie-black hover:bg-barn-red text-white hover:text-white hover:border-barn-red"
         }`}
         onClick={onClick}
         disabled={disabled}
@@ -117,7 +128,7 @@ const PrevButton = ({
         whileTap={{ scale: disabled ? 1 : 0.95 }}
     >
         <svg
-            className="w-5 h-5 text-eerie-black hover:text-white"
+            className="w-6 h-6"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -140,10 +151,10 @@ const NextButton = ({
     disabled: boolean;
 }) => (
     <motion.button
-        className={`embla__button embla__button--next w-12 h-12 rounded-full bg-white border-2 border-khaki shadow-lg flex items-center justify-center transition-all ${
+        className={`w-12 h-12 rounded-full bg-bone border-2 border-khaki shadow-lg flex items-center justify-center transition-all ${
             disabled
                 ? "opacity-40 cursor-not-allowed"
-                : "opacity-100 hover:bg-barn-red hover:text-white hover:border-barn-red transform hover:scale-105"
+                : "opacity-100 bg-eerie-black hover:bg-barn-red text-white hover:text-white hover:border-barn-red"
         }`}
         onClick={onClick}
         disabled={disabled}
@@ -154,7 +165,7 @@ const NextButton = ({
         whileTap={{ scale: disabled ? 1 : 0.95 }}
     >
         <svg
-            className="w-5 h-5 text-eerie-black hover:text-white"
+            className="w-6 h-6"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -251,7 +262,7 @@ const WhyChooseUs = () => {
             viewport={{ once: true, amount: 0.3 }}
         >
             {/* Background floating diamond elements */}
-            <motion.div
+            {/* <motion.div
                 className="absolute top-10 right-10 w-20 h-20 border border-khaki/20 transform rotate-45"
                 animate={{
                     rotate: [45, 405],
@@ -273,10 +284,10 @@ const WhyChooseUs = () => {
                     rotate: { duration: 20, repeat: Infinity, ease: "linear" },
                     scale: { duration: 4, repeat: Infinity, ease: "easeInOut" },
                 }}
-            />
+            /> */}
 
             {/* Additional diamond accents */}
-            <motion.div
+            {/* <motion.div
                 className="absolute top-1/2 left-5 w-12 h-12 border border-khaki/15 transform rotate-45"
                 animate={{
                     rotate: [45, 405],
@@ -302,7 +313,7 @@ const WhyChooseUs = () => {
                         ease: "easeInOut",
                     },
                 }}
-            />
+            /> */}
 
             <div className="max-w-screen-2xl mx-auto relative z-10">
                 {/* Section Header */}
@@ -326,44 +337,159 @@ const WhyChooseUs = () => {
                     />
                 </motion.div>
 
-                <motion.div className="embla overflow-hidden" variants={carouselVariants}>
-                    <div className="embla__viewport" ref={emblaRef}>
+                <motion.div className="embla" variants={carouselVariants}>
+                    <div
+                        className="embla__viewport overflow-hidden"
+                        ref={emblaRef}
+                    >
                         <div className="embla__container flex">
-                            {whyChooseUs.carousel.map((item, index) => (
-                                <div
-                                    key={index}
-                                    className="embla__slide flex-shrink-0 w-full md:w-1/3 px-4"
-                                >
-                                    <motion.div className="bg-white p-8 rounded-2xl h-full flex flex-col transition-all duration-300 border border-khaki/20">
-                                        <h3 className="text-2xl md:text-3xl font-bold mb-4 text-eerie-black font-jost leading-tight">
-                                            {item.title}
-                                        </h3>
-                                        <p className="text-eerie-black/80 leading-relaxed flex-grow text-lg font-open-sans">
-                                            {item.description}
-                                        </p>
+                            {whyChooseUs.carousel.map((item, index) => {
+                                const IconComponent = item.icon;
+                                return (
+                                    <div
+                                        key={index}
+                                        className="embla__slide flex-shrink-0 w-full md:w-1/3 px-4"
+                                    >
+                                        <motion.div className="bg-white rounded-2xl h-full flex flex-col transition-all duration-300 border border-khaki/20 overflow-hidden">
+                                            {/* Image Header */}
+                                            <motion.div
+                                                className="relative h-48 overflow-hidden"
+                                                initial={{
+                                                    opacity: 0,
+                                                    scale: 1.1,
+                                                }}
+                                                whileInView={{
+                                                    opacity: 1,
+                                                    scale: 1,
+                                                }}
+                                                transition={{
+                                                    duration: 0.8,
+                                                    delay: index * 0.1,
+                                                }}
+                                            >
+                                                <motion.img
+                                                    src={item.image}
+                                                    alt={item.title}
+                                                    className="w-full h-full object-cover"
+                                                    whileHover={{
+                                                        scale: 1.05,
+                                                        transition: {
+                                                            duration: 0.3,
+                                                        },
+                                                    }}
+                                                />
 
-                                        {/* Bottom accent */}
-                                        <motion.div
-                                            className="mt-6 w-full h-1 bg-gradient-to-r from-khaki to-barn-red rounded-full"
-                                            initial={{ scaleX: 0 }}
-                                            whileInView={{ scaleX: 1 }}
-                                            transition={{
-                                                duration: 0.8,
-                                                delay: 0.2,
-                                            }}
-                                            style={{ originX: 0 }}
-                                        />
-                                    </motion.div>
-                                </div>
-                            ))}
+                                                {/* Overlay gradient */}
+                                                <motion.div
+                                                    className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"
+                                                    initial={{ opacity: 0 }}
+                                                    whileInView={{ opacity: 1 }}
+                                                    transition={{
+                                                        delay:
+                                                            index * 0.1 + 0.3,
+                                                    }}
+                                                />
+
+                                                {/* Floating Icon Badge */}
+                                                <motion.div
+                                                    className="absolute top-4 right-4 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-white"
+                                                    initial={{
+                                                        opacity: 0,
+                                                        scale: 0,
+                                                        rotate: -180,
+                                                    }}
+                                                    whileInView={{
+                                                        opacity: 1,
+                                                        scale: 1,
+                                                        rotate: 0,
+                                                    }}
+                                                    transition={{
+                                                        duration: 0.6,
+                                                        delay:
+                                                            index * 0.1 + 0.5,
+                                                        type: "spring",
+                                                        stiffness: 200,
+                                                    }}
+                                                    whileHover={{
+                                                        scale: 1.1,
+                                                        rotate: 5,
+                                                        transition: {
+                                                            duration: 0.2,
+                                                        },
+                                                    }}
+                                                >
+                                                    <IconComponent className="w-6 h-6 text-barn-red" />
+                                                </motion.div>
+                                            </motion.div>
+
+                                            {/* Content */}
+                                            <div className="p-8 flex flex-col flex-grow">
+                                                <motion.h3
+                                                    className="text-2xl md:text-3xl font-bold mb-4 text-eerie-black font-jost leading-tight"
+                                                    initial={{
+                                                        opacity: 0,
+                                                        y: 20,
+                                                    }}
+                                                    whileInView={{
+                                                        opacity: 1,
+                                                        y: 0,
+                                                    }}
+                                                    transition={{
+                                                        duration: 0.5,
+                                                        delay:
+                                                            index * 0.1 + 0.2,
+                                                    }}
+                                                >
+                                                    {item.title}
+                                                </motion.h3>
+
+                                                <motion.p
+                                                    className="text-eerie-black/80 leading-relaxed flex-grow text-lg font-open-sans"
+                                                    initial={{
+                                                        opacity: 0,
+                                                        y: 20,
+                                                    }}
+                                                    whileInView={{
+                                                        opacity: 1,
+                                                        y: 0,
+                                                    }}
+                                                    transition={{
+                                                        duration: 0.5,
+                                                        delay:
+                                                            index * 0.1 + 0.3,
+                                                    }}
+                                                >
+                                                    {item.description}
+                                                </motion.p>
+
+                                                {/* Bottom accent */}
+                                                <motion.div
+                                                    className="mt-6 w-full h-1 bg-gradient-to-r from-khaki to-barn-red rounded-full"
+                                                    initial={{ scaleX: 0 }}
+                                                    whileInView={{ scaleX: 1 }}
+                                                    transition={{
+                                                        duration: 0.8,
+                                                        delay:
+                                                            index * 0.1 + 0.4,
+                                                    }}
+                                                    style={{ originX: 0 }}
+                                                />
+                                            </div>
+                                        </motion.div>
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
 
-                    <motion.div
-                        className="embla__controls"
-                        variants={controlsVariants}
-                    >
-                        <motion.div className="embla__buttons flex justify-center gap-6 mt-12">
+                    <div className="flex justify-center md:justify-between items-center gap-6 mt-12">
+                        {/* Carousel Controls */}
+                        <motion.div
+                            className="flex justify-center gap-6 mt-12"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.6, duration: 0.6 }}
+                        >
                             <PrevButton
                                 onClick={onPrevButtonClick}
                                 disabled={prevBtnDisabled}
@@ -374,24 +500,30 @@ const WhyChooseUs = () => {
                             />
                         </motion.div>
 
-                        <motion.div className="embla__dots flex justify-center mt-8 space-x-3">
+                        {/* Dot indicators */}
+                        <motion.div
+                            className="hidden md:flex justify-center mt-8 space-x-3"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.8, duration: 0.6 }}
+                        >
                             {scrollSnaps.map((_, index) => (
                                 <DotButton
                                     key={index}
                                     onClick={() => onDotButtonClick(index)}
-                                    className={"embla__dot border-2 border-khaki".concat(
+                                    className={"border-2 border-eerie-black".concat(
                                         index === selectedIndex
-                                            ? " embla__dot--selected bg-barn-red border-barn-red scale-125"
-                                            : " bg-white hover:bg-khaki hover:scale-110"
+                                            ? "  bg-eerie-black border-eerie-black scale-125"
+                                            : " bg-eerie-black/30 hover:bg-eerie-black/60 hover:scale-110"
                                     )}
                                 />
                             ))}
                         </motion.div>
-                    </motion.div>
+                    </div>
                 </motion.div>
 
                 {/* Floating accent dots */}
-                <motion.div
+                {/* <motion.div
                     className="flex justify-center mt-8"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -413,7 +545,7 @@ const WhyChooseUs = () => {
                         <div className="w-2 h-2 bg-barn-red rounded-full" />
                         <div className="w-2 h-2 bg-khaki rounded-full" />
                     </motion.div>
-                </motion.div>
+                </motion.div> */}
             </div>
         </motion.section>
     );
