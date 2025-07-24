@@ -370,7 +370,7 @@ const CoreOfferings = () => {
                 }}
             />
 
-            <div className="max-w-screen-2xl mx-auto relative z-10">
+            <div className="max-w-screen-2xl mx-auto relative">
                 {/* Section Header */}
                 <motion.div
                     className="text-center mb-16"
@@ -537,7 +537,7 @@ const CoreOfferings = () => {
                 <AnimatePresence>
                     {expandedIndex !== null && (
                         <motion.div
-                            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+                            className="fixed inset-0 z-40 flex items-center justify-center p-4"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
@@ -594,7 +594,6 @@ const CoreOfferings = () => {
                                     ease: [0.25, 0.46, 0.45, 0.94],
                                 }}
                                 onClick={(e) => e.stopPropagation()}
-                                style={{ zIndex: 10000 }}
                             >
                                 {expandedIndex !== null && (
                                     <>
@@ -603,7 +602,7 @@ const CoreOfferings = () => {
                                             onClick={() =>
                                                 setExpandedIndex(null)
                                             }
-                                            className="absolute top-4 right-4 w-10 h-10 bg-eerie-black rounded-full shadow-lg flex items-center justify-center hover:bg-barn-red hover:text-white transition-colors duration-300 z-10"
+                                            className="absolute top-4 right-4 w-10 h-10 bg-eerie-black rounded-full shadow-lg flex items-center justify-center hover:bg-barn-red hover:text-white transition-colors duration-300 z-40"
                                             whileHover={{ scale: 1.1 }}
                                             whileTap={{ scale: 0.9 }}
                                         >

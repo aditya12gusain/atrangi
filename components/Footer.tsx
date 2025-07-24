@@ -120,7 +120,7 @@ const Footer = () => {
                 }}
             /> */}
 
-            <div className="max-w-screen-2xl mx-auto relative z-10">
+            <div className="max-w-screen-2xl mx-auto relative z-0">
                 {/* Main Footer Content */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
                     {/* Company Info */}
@@ -281,7 +281,8 @@ const Footer = () => {
                             className="bg-bone text-eerie-black px-6 py-3 rounded-lg font-open-sans font-semibold mb-6 hover:bg-bone/90 transition-colors duration-300 w-full"
                             whileHover={{
                                 scale: 1.05,
-                                boxShadow: "0 8px 25px rgba(226, 221, 206, 0.3)",
+                                boxShadow:
+                                    "0 8px 25px rgba(226, 221, 206, 0.3)",
                             }}
                             whileTap={{ scale: 0.98 }}
                         >

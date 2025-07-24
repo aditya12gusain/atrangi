@@ -145,7 +145,7 @@ export default function Header() {
 
     return (
         <motion.header
-            className="fixed top-0 left-0 right-0 z-50 font-open-sans text-white transition-all duration-300"
+            className="fixed top-0 left-0 right-0 z-10 font-open-sans text-white transition-all duration-300"
             animate={isScrolled ? "floating" : "top"}
             variants={headerVariants}
             initial="top"

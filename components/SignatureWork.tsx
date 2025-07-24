@@ -152,13 +152,13 @@ const SignatureWork = () => {
     return (
         <motion.section
             id="signature-work"
-            className="z-0 bg-bone p-6 py-16 md:p-16 md:py-20 relative overflow-hidden"
+            className="bg-bone p-6 py-16 md:p-16 md:py-20 relative overflow-hidden"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
         >
-            <div className="max-w-screen-2xl mx-auto relative z-10">
+            <div className="max-w-screen-2xl mx-auto relative">
                 {/* Section Header */}
                 <motion.div
                     className="text-center mb-16"

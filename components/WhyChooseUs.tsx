@@ -323,7 +323,7 @@ const WhyChooseUs = () => {
                 }}
             /> */}
 
-            <div className="max-w-screen-2xl mx-auto relative z-10">
+            <div className="max-w-screen-2xl mx-auto relative">
                 {/* Section Header */}
                 <motion.div
                     className="text-center mb-12"

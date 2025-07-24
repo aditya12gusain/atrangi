@@ -158,7 +158,7 @@ const HeroSection = () => {
                     }}
                 />
 
-                <div className="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 items-center relative z-10">
+                <div className="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 items-center relative">
                     <motion.h1
                         className="text-3xl md:text-[5vw] font-extrabold font-jost"
                         variants={titleVariants}
