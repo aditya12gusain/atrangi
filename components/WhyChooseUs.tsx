@@ -212,6 +212,7 @@ const WhyChooseUs = () => {
     const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
     const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
     const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
+    const [expandedCard, setExpandedCard] = useState<number | null>(null);
 
     const onPrevButtonClick = useCallback(() => {
         if (!emblaApi) return;
@@ -229,6 +230,13 @@ const WhyChooseUs = () => {
             emblaApi.scrollTo(index);
         },
         [emblaApi]
+    );
+
+    const handleCardInteraction = useCallback(
+        (index: number) => {
+            setExpandedCard(expandedCard === index ? null : index);
+        },
+        [expandedCard]
     );
 
     const onInit = useCallback((emblaApi: EmblaCarouselType) => {
@@ -350,10 +358,24 @@ const WhyChooseUs = () => {
                                         key={index}
                                         className="embla__slide flex-shrink-0 w-full md:w-1/3 px-4"
                                     >
-                                        <motion.div className="bg-white rounded-2xl h-full flex flex-col transition-all duration-300 border border-khaki/20 overflow-hidden">
+                                        <motion.div
+                                            className="bg-white rounded-2xl h-full flex flex-col transition-all duration-300 border border-khaki/20 overflow-hidden group cursor-pointer"
+                                            initial={{
+                                                opacity: 0,
+                                                // scale: 0.9,
+                                            }}
+                                            whileInView={{
+                                                opacity: 1,
+                                                // scale: 1,
+                                            }}
+                                            transition={{
+                                                duration: 0.6,
+                                                delay: index * 0.1,
+                                            }}
+                                        >
                                             {/* Image Header */}
                                             <motion.div
-                                                className="relative h-48 overflow-hidden"
+                                                className="relative h-80 overflow-hidden"
                                                 initial={{
                                                     opacity: 0,
                                                     scale: 1.1,
@@ -370,18 +392,12 @@ const WhyChooseUs = () => {
                                                 <motion.img
                                                     src={item.image}
                                                     alt={item.title}
-                                                    className="w-full h-full object-cover"
-                                                    whileHover={{
-                                                        scale: 1.05,
-                                                        transition: {
-                                                            duration: 0.3,
-                                                        },
-                                                    }}
+                                                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                                                 />
 
                                                 {/* Overlay gradient */}
                                                 <motion.div
-                                                    className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"
+                                                    className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent"
                                                     initial={{ opacity: 0 }}
                                                     whileInView={{ opacity: 1 }}
                                                     transition={{
@@ -392,7 +408,7 @@ const WhyChooseUs = () => {
 
                                                 {/* Floating Icon Badge */}
                                                 <motion.div
-                                                    className="absolute top-4 right-4 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-white"
+                                                    className="absolute top-4 right-4 w-12 h-12 bg-white backdrop-blur-3xl rounded-full shadow-lg flex items-center justify-center border border-bone/50"
                                                     initial={{
                                                         opacity: 0,
                                                         scale: 0,
@@ -420,61 +436,53 @@ const WhyChooseUs = () => {
                                                 >
                                                     <IconComponent className="w-6 h-6 text-barn-red" />
                                                 </motion.div>
-                                            </motion.div>
 
-                                            {/* Content */}
-                                            <div className="p-8 flex flex-col flex-grow">
-                                                <motion.h3
-                                                    className="text-2xl md:text-3xl font-bold mb-4 text-eerie-black font-jost leading-tight"
-                                                    initial={{
-                                                        opacity: 0,
-                                                        y: 20,
-                                                    }}
-                                                    whileInView={{
-                                                        opacity: 1,
-                                                        y: 0,
-                                                    }}
-                                                    transition={{
-                                                        duration: 0.5,
-                                                        delay:
-                                                            index * 0.1 + 0.2,
-                                                    }}
-                                                >
-                                                    {item.title}
-                                                </motion.h3>
-
-                                                <motion.p
-                                                    className="text-eerie-black/80 leading-relaxed flex-grow text-lg font-open-sans"
-                                                    initial={{
-                                                        opacity: 0,
-                                                        y: 20,
-                                                    }}
-                                                    whileInView={{
-                                                        opacity: 1,
-                                                        y: 0,
-                                                    }}
-                                                    transition={{
-                                                        duration: 0.5,
-                                                        delay:
-                                                            index * 0.1 + 0.3,
-                                                    }}
-                                                >
-                                                    {item.description}
-                                                </motion.p>
-
-                                                {/* Bottom accent */}
+                                                {/* Glass Morphism Content Container */}
                                                 <motion.div
-                                                    className="mt-6 w-full h-1 bg-gradient-to-r from-khaki to-barn-red rounded-full"
-                                                    initial={{ scaleX: 0 }}
-                                                    whileInView={{ scaleX: 1 }}
-                                                    transition={{
-                                                        duration: 0.8,
-                                                        delay:
-                                                            index * 0.1 + 0.4,
+                                                    className="absolute bottom-0 bg-eerie-black/50 left-0 right-0 backdrop-blur-md shadow-xl transition-all duration-500"
+                                                    style={{
+                                                        backdropFilter:
+                                                            "blur(12px)",
+                                                        WebkitBackdropFilter:
+                                                            "blur(12px)",
                                                     }}
-                                                    style={{ originX: 0 }}
-                                                />
-                                            </div>
+                                                >
+                                                    {/* Always Visible Title */}
+                                                    <div className="px-6 pt-4 md:p-6">
+                                                        <motion.h3
+                                                            className="text-2xl font-bold text-white font-jost leading-tight"
+                                                            initial={{
+                                                                opacity: 0,
+                                                                y: 20,
+                                                            }}
+                                                            whileInView={{
+                                                                opacity: 1,
+                                                                y: 0,
+                                                            }}
+                                                            transition={{
+                                                                duration: 0.5,
+                                                                delay:
+                                                                    index *
+                                                                        0.1 +
+                                                                    0.2,
+                                                            }}
+                                                        >
+                                                            {item.title}
+                                                        </motion.h3>
+                                                    </div>
+
+                                                    {/* Description - Hidden initially, revealed on hover */}
+                                                    <div className="px-6 pb-6 md:pb-0 md:group-hover:pb-6 md:max-h-0 md:group-hover:max-h-40 overflow-hidden transition-all duration-500 ease-in-out">
+                                                        <div className="md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 delay-200 transform translate-y-2 group-hover:translate-y-0">
+                                                            <p className="text-white/90 leading-relaxed text-base font-open-sans">
+                                                                {
+                                                                    item.description
+                                                                }
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </motion.div>
+                                            </motion.div>
                                         </motion.div>
                                     </div>
                                 );

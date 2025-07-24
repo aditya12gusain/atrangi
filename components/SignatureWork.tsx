@@ -272,80 +272,122 @@ const SignatureWork = () => {
                                         }}
                                         className="overflow-hidden"
                                     >
-                                        {/* Work Items Grid */}
-                                        <motion.div className="pl-12 pr-4 py-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
-                                            {category.works.map(
-                                                (work, workIndex) => (
-                                                    <motion.div
-                                                        key={workIndex}
-                                                        className="relative bg-white backdrop-blur-sm p-6 rounded-xl shadow hover:shadow-xl transition-all duration-300 group border border-eerie-black/10"
-                                                        variants={
-                                                            workItemVariants
-                                                        }
-                                                        initial="hidden"
-                                                        animate="visible"
-                                                        transition={{
-                                                            delay:
-                                                                workIndex * 0.1,
-                                                        }}
-                                                        whileHover={{
-                                                            scale: 1.02,
-                                                            backgroundColor:
-                                                                "rgba(255, 255, 255, 0.95)",
-                                                            boxShadow:
-                                                                "0 20px 40px rgba(31, 32, 30, 0.15)",
-                                                        }}
-                                                        whileTap={{
-                                                            scale: 0.98,
-                                                        }}
-                                                    >
-                                                        {/* Animated border progress bar */}
-                                                        <svg
-                                                            className="absolute inset-0 w-full h-full rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                        >
-                                                            <motion.rect
-                                                                x="1"
-                                                                y="1"
-                                                                width="calc(100% - 2px)"
-                                                                height="calc(100% - 2px)"
-                                                                fill="none"
-                                                                stroke="#dc2626"
-                                                                strokeWidth="2"
-                                                                rx="11"
-                                                                ry="11"
-                                                                strokeDasharray="100%"
-                                                                strokeDashoffset="100%"
-                                                                animate={{
-                                                                    strokeDashoffset:
-                                                                        [
-                                                                            "100%",
-                                                                            "0%",
-                                                                            "-100%",
-                                                                        ],
-                                                                }}
-                                                                transition={{
-                                                                    duration: 3,
-                                                                    repeat: Infinity,
-                                                                    ease: "easeInOut",
-                                                                }}
-                                                            />
-                                                        </svg>
-
-                                                        <motion.p
-                                                            className="relative z-10 text-eerie-black/90 leading-relaxed font-open-sans group-hover:text-eerie-black transition-colors duration-300"
-                                                            whileHover={{
-                                                                x: 4,
-                                                            }}
+                                        {/* Work Items List */}
+                                        <motion.div className="pl-12 pr-4 py-8">
+                                            <div className="space-y-4">
+                                                {category.works.map(
+                                                    (work, workIndex) => (
+                                                        <motion.div
+                                                            key={workIndex}
+                                                            className="relative group"
+                                                            variants={
+                                                                workItemVariants
+                                                            }
+                                                            initial="hidden"
+                                                            animate="visible"
                                                             transition={{
-                                                                duration: 0.2,
+                                                                delay:
+                                                                    workIndex *
+                                                                    0.1,
                                                             }}
                                                         >
-                                                            {work}
-                                                        </motion.p>
-                                                    </motion.div>
-                                                )
-                                            )}
+                                                            {/* Work Item Card */}
+                                                            <motion.div
+                                                                className="relative bg-gradient-to-r from-bone to-khaki/20 p-6 transition-all duration-300 group border-l-4 border-barn-red/40 hover:border-barn-red"
+                                                                whileHover={{
+                                                                    scale: 1.01,
+                                                                    backgroundColor:
+                                                                        "rgba(226, 221, 206, 0.95)",
+                                                                    boxShadow:
+                                                                        "0 8px 32px rgba(122, 6, 6, 0.15)",
+                                                                }}
+                                                                whileTap={{
+                                                                    scale: 0.99,
+                                                                }}
+                                                            >
+                                                                {/* Content Container */}
+                                                                <div className="flex items-start space-x-4">
+                                                                    {/* Number Badge */}
+                                                                    <motion.div
+                                                                        className="flex-shrink-0 w-8 h-8 bg-barn-red text-bone rounded-full flex items-center justify-center text-sm font-bold font-jost"
+                                                                        whileHover={{
+                                                                            scale: 1.1,
+                                                                            backgroundColor:
+                                                                                "#7a0606",
+                                                                        }}
+                                                                    >
+                                                                        {workIndex +
+                                                                            1}
+                                                                    </motion.div>
+
+                                                                    {/* Work Content */}
+                                                                    <div className="flex-1 min-w-0">
+                                                                        <motion.div
+                                                                            className="text-eerie-black leading-relaxed font-open-sans text-sm md:text-base group-hover:text-eerie-black/90 transition-colors duration-300"
+                                                                            whileHover={{
+                                                                                x: 2,
+                                                                            }}
+                                                                            transition={{
+                                                                                duration: 0.2,
+                                                                            }}
+                                                                        >
+                                                                            {/* Parse work content for better formatting */}
+                                                                            {(() => {
+                                                                                const parts =
+                                                                                    work.split(
+                                                                                        " – "
+                                                                                    );
+                                                                                if (
+                                                                                    parts.length >
+                                                                                    1
+                                                                                ) {
+                                                                                    return (
+                                                                                        <>
+                                                                                            <div className="font-semibold text-barn-red font-jost mb-1">
+                                                                                                {
+                                                                                                    parts[0]
+                                                                                                }
+                                                                                            </div>
+                                                                                            <div className="text-eerie-black/80">
+                                                                                                {parts
+                                                                                                    .slice(
+                                                                                                        1
+                                                                                                    )
+                                                                                                    .join(
+                                                                                                        " – "
+                                                                                                    )}
+                                                                                            </div>
+                                                                                        </>
+                                                                                    );
+                                                                                } else {
+                                                                                    return (
+                                                                                        <div>
+                                                                                            {
+                                                                                                work
+                                                                                            }
+                                                                                        </div>
+                                                                                    );
+                                                                                }
+                                                                            })()}
+                                                                        </motion.div>
+                                                                    </div>
+                                                                </div>
+
+                                                                {/* Subtle accent line */}
+                                                                <motion.div
+                                                                    className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-barn-red via-khaki to-transparent w-0 group-hover:w-full transition-all duration-500"
+                                                                    initial={{
+                                                                        width: 0,
+                                                                    }}
+                                                                    whileHover={{
+                                                                        width: "100%",
+                                                                    }}
+                                                                />
+                                                            </motion.div>
+                                                        </motion.div>
+                                                    )
+                                                )}
+                                            </div>
                                         </motion.div>
                                     </motion.div>
                                 )}
